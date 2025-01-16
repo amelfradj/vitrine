@@ -47,9 +47,7 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-
+    
     - name: Set up Heroku CLI
       run: |
         curl https://cli-assets.heroku.com/install.sh | sh
@@ -59,15 +57,10 @@ jobs:
       run: |
         git config --global user.email "${{ secrets.HEROKU_EMAIL }}"
         git config --global user.name "GitHub Actions"
-    
-    - name: Create .env.prod
-      run: |
-        echo "APP_ENV=prod" >> .env.prod
-        echo "APP_SECRET=${{ secrets.APP_SECRET }}" >> .env.prod
-        echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env.prod
-    
+        
     - name: Deploy to Heroku
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       run: |
-        git push heroku main:main -f
+        git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git HEAD:main
