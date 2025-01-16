@@ -18,6 +18,13 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "@symfony/stimulus-bridge": "^3.2.3"
+        "@api-platform/admin": "^4.0.3",
+        "@babel/runtime": "^7.26.0",
+        "@graphiql/react": "^0.28.2",
+        "@hotwired/stimulus": "^3.2.2",
+        "@symfony/stimulus-bridge": "^3.2.3",
+        "graphql": "^16.10.0",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1"
     }
 }
