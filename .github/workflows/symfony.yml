@@ -56,6 +56,16 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
+
+    - name: Install Heroku CLI
+      run: |
+        curl https://cli-assets.heroku.com/install.sh | sh
+    
+    - name: Create .env.prod
+      run: |
+        echo "APP_ENV=prod" >> .env.prod
+        echo "APP_SECRET=${{ secrets.APP_SECRET }}" >> .env.prod
+        echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env.prod
     
     - name: Deploy to Heroku
       uses: akhileshns/heroku-deploy@v3.13.15
@@ -63,4 +73,4 @@ jobs:
         heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
         heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
         heroku_email: ${{ secrets.HEROKU_EMAIL }}
-        env_file: ".env.prod"
+        buildpack: "heroku/php"
